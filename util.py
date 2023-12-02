@@ -28,14 +28,14 @@ class Util:
         """ Evaluates and scores forecasts in the my_prob1 field against those in the elo_prob1 field for each game """
         my_points_by_season, elo_points_by_season = {}, {}
 
-        forecasted_games = [g for g in games if g['result1'] != None]
-        upcoming_games = [g for g in games if g['result1'] == None and 'my_prob1' in g]
+        forecasted_games = [g for g in games if g['result1'] is not None]
+        upcoming_games = [g for g in games if g['result1'] is None and 'my_prob1' in g]
 
         # Evaluate forecasts and group by season
         for game in forecasted_games:
 
             # Skip unplayed games and ties
-            if game['result1'] == None or game['result1'] == 0.5:
+            if game['result1'] is None or game['result1'] == 0.5:
                 continue
 
             if game['season'] not in elo_points_by_season:

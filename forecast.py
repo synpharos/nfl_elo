@@ -1,9 +1,9 @@
 import csv
 import math
 
-HFA = 65.0     # Home field advantage is worth 65 Elo points
-K = 20.0       # The speed at which Elo ratings change
-REVERT = 1/3.0 # Between seasons, a team retains 2/3 of its previous season's rating
+HFA = 65.0          # Home field advantage is worth 65 Elo points
+K = 20.0            # The speed at which Elo ratings change
+REVERT = 1/3.0      # Between seasons, a team retains 2/3 of its previous season's rating
 
 REVERSIONS = {'CBD1925': 1502.032, 'RAC1926': 1403.384, 'LOU1926': 1307.201, 'CIB1927': 1362.919, 'MNN1929': 1306.702, # Some between-season reversions of unknown origin
               'BFF1929': 1331.943, 'LAR1944': 1373.977, 'PHI1944': 1497.988, 'ARI1945': 1353.939, 'PIT1945': 1353.939, 'CLE1999': 1300.0}
@@ -40,11 +40,11 @@ class Forecast:
             elo_diff = team1['elo'] - team2['elo'] + (0 if game['neutral'] == 1 else HFA)
 
             # This is the most important piece, where we set my_prob1 to our forecasted probability
-            if game['elo_prob1'] != None:
+            if game['elo_prob1'] is not None:
                 game['my_prob1'] = 1.0 / (math.pow(10.0, (-elo_diff/400.0)) + 1.0)
 
             # If game was played, maintain team Elo ratings
-            if game['score1'] != None:
+            if game['score1'] is not None:
 
                 # Margin of victory is used as a K multiplier
                 pd = abs(game['score1'] - game['score2'])
